@@ -15,8 +15,9 @@ public class RecipeFinderApp extends Recipes {
         System.out.println("1 - Search recipes by name");
         System.out.println("2 - Search recipes by ingredient");
         System.out.println("3 - Add a recipe to the list");
-        System.out.println("4 - Show all available recipes");
-        System.out.println("5 - Exit Program");
+        System.out.println("4 - Delete a recipe from the list");
+        System.out.println("5 - Show all available recipes");
+        System.out.println("6 - Exit Program");
         System.out.println();
     }
 
@@ -47,11 +48,16 @@ public class RecipeFinderApp extends Recipes {
                 	addRecipeOption();
                 	System.out.println();
                 	break;
-                case 4:
+                case 4: 
+                	deleteRecipeOption();
+                	System.out.println();
+                	break;
+                	
+                case 5:
                     recipes.printRecipeArray();
                     System.out.println();
                     break;             	
-                case 5:
+                case 6:
                     System.out.println("Exiting the application.");
                     input = false;
                     break;
@@ -95,9 +101,27 @@ public class RecipeFinderApp extends Recipes {
         
         displayImageFromUrl(imageUrl);
 
-
     }
 
+    public void deleteRecipeOption() {
+        Scanner scnr = new Scanner(System.in);
+
+        System.out.print("Enter recipe name to delete: ");
+        String nameToDelete = scnr.nextLine().trim();
+        System.out.println();
+        
+        while (nameToDelete.isEmpty() || !Recipes.recipeExists(nameToDelete)) {
+            if (nameToDelete.isEmpty()) {
+                System.out.println("Recipe name cannot be empty. Please enter a valid recipe name: ");
+            } else {
+                System.out.println("Recipe with the name '" + nameToDelete + "' not found. Please enter a valid recipe name: ");
+            }
+
+            nameToDelete = scnr.nextLine().trim();
+            System.out.println();
+
+        Recipes.deleteRecipe(nameToDelete); }
+    }	
 
     public static void main(String[] args) {
         RecipeFinderApp app = new RecipeFinderApp();
