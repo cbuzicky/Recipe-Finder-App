@@ -2,12 +2,13 @@ import java.util.Scanner;
 
 public class RecipeFinderApp extends Recipes {
     private Recipes recipes;
-
+    
+// Opens the program and loads the recipes from the data file
     public RecipeFinderApp() {
         this.recipes = new Recipes();
         Recipes.loadRecipesFromFile("recipes.dat");
     }
-
+// Displays the main menu options
     public void menuDisplay() {
     	System.out.println("        *** MAIN MENU ***        ");
         System.out.println("Make a selection from the following options");
@@ -20,7 +21,7 @@ public class RecipeFinderApp extends Recipes {
         System.out.println("6 - Exit Program");
         System.out.println();
     }
-
+// Allows user to make one of six menu choices while input is valid. 
     public void menuChoices() {
         Scanner scnr = new Scanner(System.in);
         boolean input = true;
@@ -69,7 +70,7 @@ public class RecipeFinderApp extends Recipes {
 
         } while (input);
     }
-
+// User can enter the name of a recipe to search for the recipe in the data file.
     private void searchRecipesByNameOption() {
         Scanner scnr = new Scanner(System.in);
         System.out.print("Enter recipe name to search: ");
@@ -77,13 +78,14 @@ public class RecipeFinderApp extends Recipes {
         recipes.searchRecipesByName(searchName);
         
     }     
+// User can enter the name of an ingredient and search all recipes that contain this ingredient.   
     private void searchRecipesByIngredientOption() {
         Scanner scnr = new Scanner(System.in);
         System.out.print("Enter recipe ingredient to search: ");
         String searchIngredient = scnr.nextLine();
         recipes.searchRecipesByIngredient(searchIngredient);
     }
-    
+// User can add a recipe to the file    
     public void addRecipeOption() {
         Scanner scnr = new Scanner(System.in);
 
@@ -102,7 +104,7 @@ public class RecipeFinderApp extends Recipes {
         displayImageFromUrl(imageUrl);
 
     }
-
+// User can delete a recipe from the file based on name
     public void deleteRecipeOption() {
         Scanner scnr = new Scanner(System.in);
 
