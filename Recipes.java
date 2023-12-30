@@ -17,10 +17,12 @@ public class Recipes implements Serializable  {
     private String name;
     private String ingredients;
     private String imageUrl;
-    
 
+
+    // Create an arraylist to collect recipe information.	
     private static ArrayList<Recipes> recipesList = new ArrayList<>();
-    
+
+    // Constructor	
     public Recipes() {
     	
     }
@@ -30,11 +32,11 @@ public class Recipes implements Serializable  {
         this.ingredients = ingredients;
         this.imageUrl = imageUrl;
     }
-
+    // Returns the Arraylist of recipes when called
     public static ArrayList<Recipes> getRecipesList() {
         return recipesList;
     }
-
+    // Loads the recipes from the file "recipes.dat" 
     public static void loadRecipesFromFile(String filename) {
         try {
             File file = new File(filename);
@@ -51,7 +53,7 @@ public class Recipes implements Serializable  {
             e.printStackTrace();
         }
     }
-
+    // Saves recipes to the file "recipes.dat"
     public static void saveRecipesToFile(String filename) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename))) {
             oos.writeObject(recipesList);
@@ -61,7 +63,7 @@ public class Recipes implements Serializable  {
         }
     }
     
-    
+    // Accessors
     public String getName() {
         return name;
     }
@@ -73,7 +75,7 @@ public class Recipes implements Serializable  {
     public String getImageUrl() {
         return imageUrl;
     }
-    
+    // Searches for a recipe in the data file based on the name of the recipe
     public void searchRecipesByName(String name) {
         System.out.println("Searching for recipes with the name: " + name);
         System.out.println();
@@ -99,7 +101,7 @@ public class Recipes implements Serializable  {
         }  
     }
  
-    
+     // Searches for a recipe from the data file based on an ingredient 
      public void searchRecipesByIngredient(String ingredients) {
             System.out.println("Searching for recipes with the ingredient: " + ingredients);
             System.out.println();
@@ -120,7 +122,7 @@ public class Recipes implements Serializable  {
             System.out.println("No recipes found with this ingredient: " + ingredients);
         }
     } 
-     
+     // Adds a recipe to the data file
     public static void addRecipe(String name, String ingredients, String imageUrl) {
         Recipes newRecipe = new Recipes(name, ingredients, imageUrl);
         System.out.println("Recipe added successfully:");
@@ -133,6 +135,7 @@ public class Recipes implements Serializable  {
         saveRecipesToFile("recipes.dat");  // Save the updated list to a file
 
     }
+    // Deletes a recipe from the data file based on name.	
     public static void deleteRecipe(String name) {
         Iterator <Recipes> iterator = recipesList.iterator();
 
@@ -146,44 +149,37 @@ public class Recipes implements Serializable  {
         }
         saveRecipesToFile("recipes.dat");
     }
-    
+    // Checks that a recipe exists in the data file
     public static boolean recipeExists(String name) {
         loadRecipesFromFile("recipes.dat");  // Load recipes from file
         return recipesList.stream().anyMatch(recipe -> recipe.getName().equalsIgnoreCase(name));
     }
-    
+    // Displays image from the imageUrl in a separate window
     public static void displayImageFromUrl(String imageUrl) {
-        // Create a JFrame
+  
         JFrame frame = new JFrame("Image Display Example");
         frame.setSize(600, 400);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Create an ImageIcon from the URL
+	    
         ImageIcon icon = createImageIcon(imageUrl);
 
-        // Create a JLabel and set the ImageIcon
         JLabel label = new JLabel(icon);
 
-        // Add the JLabel to the JFrame
         frame.getContentPane().add(label);
-
-        // Set the JFrame to be visible
         frame.setVisible(true);
     }
-
+    // Creates an image icon from the URL
     private static ImageIcon createImageIcon(String imageUrl) {
         try {
-            // Create an URL object from the string
             URL url = new URL(imageUrl);
 
-            // Create an ImageIcon from the URL
             return new ImageIcon(url);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    
+    //Prints all of the recipes in the recipe arraylist
     public void printRecipeArray() {
 
         // Access and print information about each recipe
