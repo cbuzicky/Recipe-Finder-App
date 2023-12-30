@@ -9,8 +9,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-
 import javax.swing.ImageIcon;
+import java.util.Iterator;
 
 public class Recipes implements Serializable  {
 	private static final long serialVersionUID = 1L;
@@ -133,6 +133,25 @@ public class Recipes implements Serializable  {
         saveRecipesToFile("recipes.dat");  // Save the updated list to a file
 
     }
+    public static void deleteRecipe(String name) {
+        Iterator <Recipes> iterator = recipesList.iterator();
+
+        while (iterator.hasNext()) {
+            Recipes recipe = iterator.next();
+
+            if (recipe.getName().equalsIgnoreCase(name)) {
+                System.out.println("Deleting recipe: " + recipe.getName());
+                iterator.remove();
+            }
+        }
+        saveRecipesToFile("recipes.dat");
+    }
+    
+    public static boolean recipeExists(String name) {
+        loadRecipesFromFile("recipes.dat");  // Load recipes from file
+        return recipesList.stream().anyMatch(recipe -> recipe.getName().equalsIgnoreCase(name));
+    }
+    
     public static void displayImageFromUrl(String imageUrl) {
         // Create a JFrame
         JFrame frame = new JFrame("Image Display Example");
