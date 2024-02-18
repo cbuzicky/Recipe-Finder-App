@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class RecipeFinderApp extends Recipes {
-    private Recipes recipes;
+    private static final long serialVersionUID = 1L;
+	private Recipes recipes;
 
     public RecipeFinderApp() {
         this.recipes = new Recipes();
@@ -62,6 +63,7 @@ public class RecipeFinderApp extends Recipes {
             }
 
         } while (input);
+        scnr.close();
     }
 
     private void searchRecipesByNameOption() {
@@ -69,13 +71,14 @@ public class RecipeFinderApp extends Recipes {
         System.out.print("Enter recipe name to search: ");
         String searchName = scnr.nextLine();
         recipes.searchRecipesByName(searchName);
-        
+        scnr.close();
     }     
     private void searchRecipesByIngredientOption() {
         Scanner scnr = new Scanner(System.in);
         System.out.print("Enter recipe ingredient to search: ");
         String searchIngredient = scnr.nextLine();
         recipes.searchRecipesByIngredient(searchIngredient);
+        scnr.close();
     }
     
     public void addRecipeOption() {
@@ -94,6 +97,7 @@ public class RecipeFinderApp extends Recipes {
         Recipes.addRecipe(name, ingredients, imageUrl);
         
         displayImageFromUrl(imageUrl);
+        scnr.close();
 
 
     }

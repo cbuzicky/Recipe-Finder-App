@@ -1,7 +1,6 @@
 import java.net.URL;
 import java.util.ArrayList;
 import javax.swing.*;
-import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -35,7 +34,8 @@ public class Recipes implements Serializable  {
         return recipesList;
     }
 
-    public static void loadRecipesFromFile(String filename) {
+    @SuppressWarnings("unchecked")
+	public static void loadRecipesFromFile(String filename) {
         try {
             File file = new File(filename);
             if (!file.exists()) {
